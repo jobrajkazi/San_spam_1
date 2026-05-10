@@ -1,7 +1,8 @@
-version: '3'
+version: '3.8'
+
 services:
   bot:
-    build: .
+    image: ${{ secrets.DOCKER_USERNAME }}/discord-bot:latest
     restart: unless-stopped
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
