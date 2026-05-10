@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import os
+import sys
 
 # Bot setup
 intents = discord.Intents.default()
@@ -124,5 +125,20 @@ async def stop_attacks(interaction: discord.Interaction):
         
     await interaction.response.send_message("All attacks have been stopped!")
 
-# Run the bot
-bot.run(os.getenv('DISCORD_TOKEN'))
+# Handle disconnections
+@bot.event
+async def on_disconnect():
+    print("Bot disconnected from Discord")
+
+# Run the bot with error handling
+try:
+    bot.run(os.getenv('DISCORD_TOKEN'))
+except discord.errors.LoginFailure:
+    print("Invalid Discord token")
+    sys.exit(1)
+except KeyboardInterrupt:
+    print("Bot stopped by user")
+    sys.exit(0)
+except Exception as e:
+    print(f"Unexpected error: {e}")
+    sys.exit(1)
