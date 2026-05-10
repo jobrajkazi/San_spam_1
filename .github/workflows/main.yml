@@ -4,10 +4,14 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  schedule:
+    # Run every 5 hours to keep the bot alive (GitHub Actions has a 6-hour limit)
+    - cron: '0 */5 * * *'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 350  # Set timeout to just under 6 hours
     
     steps:
     - name: Checkout repository
