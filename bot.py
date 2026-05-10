@@ -32,7 +32,7 @@ async def attack_user(interaction: discord.Interaction, user_id: str, message: s
         # Convert user_id to integer
         target_id = int(user_id)
         target_user = await bot.fetch_user(target_id)
-        
+
         if not target_user:
             await interaction.response.send_message("User not found!")
             return
@@ -69,7 +69,7 @@ async def attack_server(interaction: discord.Interaction, server_id: str, messag
         # Convert server_id to integer
         target_id = int(server_id)
         target_guild = bot.get_guild(target_id)
-        
+
         if not target_guild:
             await interaction.response.send_message("Server not found! Make sure the bot is in the server.")
             return
@@ -117,7 +117,7 @@ async def stop_attacks(interaction: discord.Interaction):
     # Stop all user attacks
     for user_id in list(user_attacks.keys()):
         user_attacks[user_id] = False
-        
+
     # Stop all server attacks
     for server_id in list(server_attacks.keys()):
         server_attacks[server_id] = False
