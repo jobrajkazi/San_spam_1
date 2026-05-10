@@ -3,11 +3,10 @@ name: Deploy Discord Bot
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -38,5 +37,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /path/to/your/bot
+          docker-compose down
           docker-compose pull
-          docker-compose up -d --build
+          docker-compose up -d
+          
